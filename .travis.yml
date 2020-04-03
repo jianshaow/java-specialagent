@@ -25,7 +25,7 @@ before_install:
 sudo: required
 stages:
 - install
-- test
+#- test
 - deploy
 jobs:
   include:
