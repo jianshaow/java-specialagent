@@ -21,7 +21,7 @@
   <parent>
     <groupId>io.opentracing.contrib.specialagent.test</groupId>
     <artifactId>test</artifactId>
-    <version>1.7.1-SNAPSHOT</version>
+    <version>1.7.2-SNAPSHOT</version>
   </parent>
   <groupId>io.opentracing.contrib.specialagent.test.spymemcached</groupId>
   <artifactId>spymemcached</artifactId>
@@ -87,6 +87,70 @@
                   <arguments>
                     <argument>-c</argument>
                     <argument>brew services stop memcached</argument>
+                  </arguments>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <id>unix</id>
+      <activation>
+        <os>
+          <family>unix</family>
+          <name>linux</name>
+        </os>
+        <file>
+          <missing>.pom-packaging-marker</missing>
+        </file>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>exec-maven-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>install</id>
+                <goals>
+                  <goal>exec</goal>
+                </goals>
+                <phase>generate-resources</phase>
+                <configuration>
+                  <executable>sh</executable>
+                  <arguments>
+                    <argument>-c</argument>
+                    <argument>sudo apt-get -y update &amp;&amp; sudo apt-get -y install memcached</argument>
+                  </arguments>
+                </configuration>
+              </execution>
+              <execution>
+                <id>start</id>
+                <goals>
+                  <goal>exec</goal>
+                </goals>
+                <phase>generate-resources</phase>
+                <configuration>
+                  <executable>sh</executable>
+                  <arguments>
+                    <argument>-c</argument>
+                    <argument>sudo service memcached start</argument>
+                  </arguments>
+                </configuration>
+              </execution>
+              <execution>
+                <id>stop</id>
+                <goals>
+                  <goal>exec</goal>
+                </goals>
+                <phase>post-integration-test</phase>
+                <configuration>
+                  <executable>sh</executable>
+                  <arguments>
+                    <argument>-c</argument>
+                    <argument>service memcached stop</argument>
                   </arguments>
                 </configuration>
               </execution>

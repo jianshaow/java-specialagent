@@ -21,7 +21,7 @@
   <parent>
     <groupId>io.opentracing.contrib.specialagent</groupId>
     <artifactId>specialagent</artifactId>
-    <version>1.7.1-SNAPSHOT</version>
+    <version>1.7.2-SNAPSHOT</version>
   </parent>
   <artifactId>opentracing-specialagent</artifactId>
   <name>OpenTracing SpecialAgent</name>
@@ -283,21 +283,7 @@
         </dependency>
         <dependency>
           <groupId>io.opentracing.contrib.specialagent.rule</groupId>
-          <artifactId>lettuce-5.0</artifactId>
-          <version>${project.version}</version>
-          <optional>true</optional>
-          <scope>provided</scope>
-        </dependency>
-        <dependency>
-          <groupId>io.opentracing.contrib.specialagent.rule</groupId>
-          <artifactId>lettuce-5.1</artifactId>
-          <version>${project.version}</version>
-          <optional>true</optional>
-          <scope>provided</scope>
-        </dependency>
-        <dependency>
-          <groupId>io.opentracing.contrib.specialagent.rule</groupId>
-          <artifactId>lettuce-5.2</artifactId>
+          <artifactId>lettuce</artifactId>
           <version>${project.version}</version>
           <optional>true</optional>
           <scope>provided</scope>

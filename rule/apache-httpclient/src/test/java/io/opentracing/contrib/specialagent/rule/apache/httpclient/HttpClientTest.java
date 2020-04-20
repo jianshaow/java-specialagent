@@ -81,6 +81,7 @@ public class HttpClientTest {
       assertEquals("localhost", span.tags().get(Tags.PEER_HOSTNAME.getKey()));
       assertEquals(12345, span.tags().get(Tags.PEER_PORT.getKey()));
       assertEquals(MockSpanDecorator.MOCK_TAG_VALUE, span.tags().get(MockSpanDecorator.MOCK_TAG_KEY));
+      assertEquals(Tags.SPAN_KIND_CLIENT, span.tags().get(Tags.SPAN_KIND.getKey()));
     }
   }
 }
