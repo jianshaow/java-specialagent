@@ -21,7 +21,7 @@
   <parent>
     <groupId>io.opentracing.contrib.specialagent</groupId>
     <artifactId>specialagent</artifactId>
-    <version>1.7.2-SNAPSHOT</version>
+    <version>1.7.3-SNAPSHOT</version>
   </parent>
   <artifactId>opentracing-specialagent</artifactId>
   <name>OpenTracing SpecialAgent</name>
@@ -284,55 +284,6 @@
         <dependency>
           <groupId>io.opentracing.contrib.specialagent.rule</groupId>
           <artifactId>lettuce</artifactId>
-          <version>${project.version}</version>
-          <optional>true</optional>
-          <scope>provided</scope>
-        </dependency>
-        <dependency>
-          <groupId>io.opentracing.contrib.specialagent.rule</groupId>
-          <artifactId>spring-web-3</artifactId>
-          <version>${project.version}</version>
-          <optional>true</optional>
-          <scope>provided</scope>
-        </dependency>
-        <dependency>
-          <groupId>io.opentracing.contrib.specialagent.rule</groupId>
-          <artifactId>spring-web-4.0</artifactId>
-          <version>${project.version}</version>
-          <optional>true</optional>
-          <scope>provided</scope>
-        </dependency>
-        <dependency>
-          <groupId>io.opentracing.contrib.specialagent.rule</groupId>
-          <artifactId>spring-web-4</artifactId>
-          <version>${project.version}</version>
-          <optional>true</optional>
-          <scope>provided</scope>
-        </dependency>
-        <dependency>
-          <groupId>io.opentracing.contrib.specialagent.rule</groupId>
-          <artifactId>spring-web-5</artifactId>
-          <version>${project.version}</version>
-          <optional>true</optional>
-          <scope>provided</scope>
-        </dependency>
-        <dependency>
-          <groupId>io.opentracing.contrib.specialagent.rule</groupId>
-          <artifactId>spring-webmvc-3</artifactId>
-          <version>${project.version}</version>
-          <optional>true</optional>
-          <scope>provided</scope>
-        </dependency>
-        <dependency>
-          <groupId>io.opentracing.contrib.specialagent.rule</groupId>
-          <artifactId>spring-webmvc-4</artifactId>
-          <version>${project.version}</version>
-          <optional>true</optional>
-          <scope>provided</scope>
-        </dependency>
-        <dependency>
-          <groupId>io.opentracing.contrib.specialagent.rule</groupId>
-          <artifactId>spring-webmvc-5</artifactId>
           <version>${project.version}</version>
           <optional>true</optional>
           <scope>provided</scope>
