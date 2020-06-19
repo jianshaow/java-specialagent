@@ -42,7 +42,7 @@ public class HttpClientAgentIntercept {
       return null;
     }
 
-    final LocalSpanContext context = LocalSpanContext.get();
+    final LocalSpanContext context = LocalSpanContext.get(COMPONENT_NAME);
     if (context != null) {
       context.increment();
       return null;
@@ -52,13 +52,14 @@ public class HttpClientAgentIntercept {
     final Span span = tracer
       .buildSpan(request.getRequestLine().getMethod())
       .withTag(Tags.COMPONENT, COMPONENT_NAME)
+      .withTag(Tags.SPAN_KIND.getKey(), Tags.SPAN_KIND_CLIENT)
       .withTag(Tags.HTTP_METHOD, request.getRequestLine().getMethod())
       .withTag(Tags.HTTP_URL, request.getRequestLine().getUri()).start();
 
     for (final ApacheClientSpanDecorator decorator : Configuration.spanDecorators)
       decorator.onRequest(request, arg0 instanceof HttpHost ? (HttpHost)arg0 : null, span);
 
-    LocalSpanContext.set(span, null);
+    LocalSpanContext.set(COMPONENT_NAME, span, null);
 
     tracer.inject(span.context(), Builtin.HTTP_HEADERS, new HttpHeadersInjectAdapter(request));
     if (arg1 instanceof ResponseHandler)
@@ -71,7 +72,7 @@ public class HttpClientAgentIntercept {
   }
 
   public static void exit(final Object returned) {
-    final LocalSpanContext context = LocalSpanContext.get();
+    final LocalSpanContext context = LocalSpanContext.get(COMPONENT_NAME);
     if (context == null || context.decrementAndGet() != 0)
       return;
 
@@ -85,7 +86,7 @@ public class HttpClientAgentIntercept {
   }
 
   public static void onError(final Throwable thrown) {
-    final LocalSpanContext context = LocalSpanContext.get();
+    final LocalSpanContext context = LocalSpanContext.get(COMPONENT_NAME);
     if (context == null || context.decrementAndGet() != 0)
       return;
 

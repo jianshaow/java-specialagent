@@ -1,5 +1,32 @@
 # Changes by Version
 
+## v1.7.3 (2020-05-10)
+* Improved runtime performance in `BootLoaderAgent` (#552)
+* Resolution to "self tracing" issue experienced with Jaeger (#531 #548)
+* Support `-DskipTests` in `itest-maven-mojo` (#568)
+* Upgrade LightStep Tracer Bundle to v0.20.1 (#566)
+
+## v1.7.2 (2020-05-03)
+* Make CI/CD stable, and reduce time for releases and PR checks (#538 #539)
+* Prefer compiled invocation rather than via reflection in `servlet` rule (#547)
+* Fix to `sparkjava` integration test failing (#560 #561)
+* Fix to `ZuulITest` failure with span not error (#558 #559)
+* Remove "unchained" agent rule `spring-web-*` in favor of `HttpUrlConnection` (improved startup performance) (#556 #557)
+* Merge all "unchained" `spring-webmvc-*` rules into one "chained" `spring-webmvc` (improved startup performance) (#553 #554)
+* [Chain rules in `BootLoaderAgent`](https://github.com/opentracing-contrib/java-specialagent/commit/040bbe07bd85310681442756e369f9c437bd06b9) (improved startup performance)
+
+## v1.7.1 (2020-04-19)
+* Fix `Span.KIND` for `apache:httpclient` rule (#550) 👈 Thank you @zeitlinger
+* Install Memcached for integration testing in Circle CI (#545)
+* Fix incorrect `http.status_code` being set in `servlet` rule (#533)
+* Merge all lettuce rules into one (#544 #546)
+* Split CXF rules into server and client parts (#532) 👈 Thank you @jianshaow
+* Fix classpath property for custom integration rules (#537)
+* Fix class loader isolation issue in `IsoClassLoader` (#540)
+* Turn on Mule integration test for jdk8 (#534) 👈 Thank you @jam01
+* Fix `StackOverflowError` in `jdbc` rule (#541)
+* Upgrade JDBC Integration to v0.2.10
+
 ## v1.7.0 (2020-04-03)
 * Improve rule loading performance (#492 #524)
 * Switch to OpenTelemetry's terminology {#522)

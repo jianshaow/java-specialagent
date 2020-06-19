@@ -19,6 +19,7 @@ import static org.junit.Assert.*;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
@@ -66,7 +67,7 @@ public class SpecialAgentUtilTest {
     properties.put("sa.exporter.jaeger.enable", "");
     properties.put("sa.exporter.jaeger.enable", "false");
     properties.put("sa.exporter.lightstep.enable", "");
-    properties.put("sa.include", "exporter.jar");
+    properties.put("sa.classpath", "exporter.jar");
     testParseConfiguration(properties);
   }
 
@@ -114,5 +115,16 @@ public class SpecialAgentUtilTest {
     assertNull(events[Event.DISCOVERY.ordinal()]);
     assertNull(events[Event.ERROR.ordinal()]);
     assertNull(events[Event.IGNORED.ordinal()]);
+  }
+
+  @Test
+  public void testEnumeration() {
+    final String[] a = new String[] {"a", "b", "c"};
+    final Enumeration<String> enumeration = SpecialAgentUtil.enumeration(a);
+    int i = 0;
+    while (enumeration.hasMoreElements())
+      assertEquals(a[i++], enumeration.nextElement());
+
+    assertEquals(a.length, i);
   }
 }

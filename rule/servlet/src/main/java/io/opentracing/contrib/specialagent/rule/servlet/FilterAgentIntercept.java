@@ -66,14 +66,14 @@ public class FilterAgentIntercept extends ServletFilterAgentIntercept {
         return;
 
       if (logger.isLoggable(Level.FINER))
-        logger.finer(">> TracingFilter#doFilter(" + AgentRuleUtil.getSimpleNameId(request) + "," + AgentRuleUtil.getSimpleNameId(res) + "," + AgentRuleUtil.getSimpleNameId(context[0]) + ")");
+        logger.finer(">> TracingFilter.doFilter(" + AgentRuleUtil.getSimpleNameId(request) + "," + AgentRuleUtil.getSimpleNameId(res) + "," + AgentRuleUtil.getSimpleNameId(context[0]) + ")");
 
       tracingFilter.doFilter(request, (ServletResponse)res, new FilterChain() {
         @Override
         public void doFilter(final ServletRequest request, final ServletResponse response) throws IOException, ServletException {
           filter.doFilter(request, response, (FilterChain)chain);
           if (logger.isLoggable(Level.FINER))
-            logger.finer("<< TracingFilter#doFilter(" + AgentRuleUtil.getSimpleNameId(request) + "," + AgentRuleUtil.getSimpleNameId(response) + "," + AgentRuleUtil.getSimpleNameId(context[0]) + ")");
+            logger.finer("<< TracingFilter.doFilter(" + AgentRuleUtil.getSimpleNameId(request) + "," + AgentRuleUtil.getSimpleNameId(response) + "," + AgentRuleUtil.getSimpleNameId(context[0]) + ")");
         }
       });
     }
@@ -85,12 +85,18 @@ public class FilterAgentIntercept extends ServletFilterAgentIntercept {
     throw new EarlyReturnException();
   }
 
-  public static void setStatusCode(final Object thiz, final int status) {
-    servletResponseToStatus.put((ServletResponse)thiz, status);
+  public static void setStatusCode(final Object response, final int status) {
+    if (logger.isLoggable(Level.FINER))
+      logger.finer("<> FilterAgentIntercept.setStatusCode(" + AgentRuleUtil.getSimpleNameId(response) + "," + status + ")");
+
+    servletResponseToStatus.put((ServletResponse)response, status);
   }
 
-  public static int getSatusCode(final ServletResponse response) {
-    final Integer statusCode = servletResponseToStatus.get(response);
-    return statusCode != null ? statusCode : HttpServletResponse.SC_OK;
+  public static int getSatusCode(final HttpServletResponse response) {
+    final Integer statusCode = servletResponseToStatus.remove(response);
+    if (logger.isLoggable(Level.FINER))
+      logger.finer("<> FilterAgentIntercept.getSatusCode(" + AgentRuleUtil.getSimpleNameId(response) + "): " + statusCode);
+
+    return statusCode != null ? statusCode : ServletApiV3.getStatus(response);
   }
 }

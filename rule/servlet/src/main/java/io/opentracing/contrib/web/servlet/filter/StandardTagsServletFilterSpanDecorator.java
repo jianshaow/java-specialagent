@@ -58,7 +58,7 @@ public class StandardTagsServletFilterSpanDecorator implements ServletFilterSpan
       span.log(timeoutLogs);
     }
 
-    private Map<String, String> logsForException(Throwable throwable) {
+    private static Map<String, String> logsForException(Throwable throwable) {
       Map<String, String> errorLog = new HashMap<>(3);
       errorLog.put("event", Tags.ERROR.getKey());
 
